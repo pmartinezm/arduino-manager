@@ -6,6 +6,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ProjectsProvider } from '../providers/projects/projects';
+import { ComponentsProvider } from '../providers/components/components';
+import { SqliProvider } from '../providers/sqli/sqli';
+import { SQLite } from '@ionic-native/sqlite';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ProjectsProvider,
+    ComponentsProvider,
+    SqliProvider,
+    SQLite
   ]
 })
-export class AppModule {}
+export class AppModule { }

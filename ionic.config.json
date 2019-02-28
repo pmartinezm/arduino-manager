@@ -1,5 +1,7 @@
 {
   "name": "arduino-manager",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

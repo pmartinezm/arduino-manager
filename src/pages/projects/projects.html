@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Projects</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-fab right bottom>
+        <button ion-fab color="dark" (click)="showModal('ModalAddProjectPage')"><ion-icon name="add"></ion-icon></button>
+      </ion-fab>
+  <ion-card *ngFor="let proj of projects">
+    <ion-card-header>
+      {{proj.name}}
+    </ion-card-header>
+    <ion-card-content>
+      {{proj.description}}
+    </ion-card-content>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Boards
+            <ion-row *ngFor="let board of proj.boards">
+              {{board.name}}
+            </ion-row>
+          </ion-col>
+          <ion-col>
+              Components
+              <ion-row *ngFor="let comp of proj.components">
+                {{comp.name}}
+              </ion-row>
+            </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

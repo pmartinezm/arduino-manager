@@ -1,14 +1,28 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Arduino Utilities
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  Estado: {{estado}}
 </ion-content>
+
+  <ion-menu [content]="content">
+    <ion-content>
+      <ion-list>
+        <button ion-item (click)="open('ProjectsPage')">
+          Projects
+        </button>
+        <button ion-item (click)="open('BoardsPage')">
+          Boards
+        </button>
+        <button ion-item (click)="open('ComponentsManagerPage')">
+          Components
+        </button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-nav id="nav" #content [root]="rootPage"></ion-nav>
