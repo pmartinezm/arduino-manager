@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Component as Comp} from '../../core/models/component';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Component as Comp } from '../../core/models/component';
 import { ComponentsProvider } from '../../providers/components/components';
 
 /**
@@ -20,12 +20,29 @@ export class ComponentsManagerPage {
   components: Array<Comp>
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private compProv: ComponentsProvider) {
+    private compProv: ComponentsProvider,
+    public modalCtrl: ModalController) {
+    this.components = new Array();
     this.updateComponents();
   }
 
-  public updateComponents(){
-    this.components = this.compProv.getComponents();
+  public showModal(name: string) {
+    let modal = this.modalCtrl.create(name);
+    modal.onDidDismiss(() => (this.updateComponents()));
+    modal.present();
+  }
+
+  public updateComponents() {
+    this.components = new Array();
+    this.compProv.getComponents()
+      .then((data) => {
+        data.forEach(element => {
+          let component: Comp = element;
+          console.log(component);
+          // console.log(component.getComponentUse());
+          this.components.push(component);
+        });
+      });
   }
 
 }

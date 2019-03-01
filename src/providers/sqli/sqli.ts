@@ -45,22 +45,7 @@ export class SqliProvider {
       .then((db: SQLiteObject) => {
         this.db = db;
         this.createTables();
-        this.getLists().then((list) => {
-          console.log("List: ");
-          console.log(list);
-        })
       });
-  }
-
-  getLists() {
-    return this.db.executeSql("SELECT * from components", [])
-      .then((data) => {
-        let lists = [];
-        for (let i = 0; i < data.rows.length; i++) {
-          lists.push(data.rows.item(i));
-        }
-        return lists;
-      })
   }
 
   public send(sql: string, params?: any[]) {
@@ -99,7 +84,8 @@ export class SqliProvider {
     this.db.executeSql(`create table if not exists boards (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         name TEXT NOT NULL,
-        description TEXT NULL
+        description TEXT NULL,
+        project INTEGER NOT NULL DEFAULT -1
       );`, [])
       .then(() => console.log("Table boards created."))
       .catch((e) => {

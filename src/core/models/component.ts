@@ -1,21 +1,26 @@
 export class Component {
     public name: string;
-    public desc: string;
-    public proj: number;
-    constructor(name: string, desc: string) {
+    public description: string;
+    public project: number;
+
+    constructor(name: string, description: string) {
         this.name = name;
-        this.desc = desc;
+        this.description = description;
         this.assignProject(-1);
     }
 
     public assignProject(id: number) {
-        this.proj = id;
+        this.project = id;
     }
 
     public getComponentUse(): string {
-        if (this.proj === -1) {
+        if (this.project === -1) {
             return "Unused";
         }
-        return "Used in project with id " + this.proj;
+        return "Used in project with id " + this.project;
+    }
+
+    public unassignProject() {
+        this.assignProject(-1);
     }
 }

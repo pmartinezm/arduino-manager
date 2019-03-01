@@ -8,9 +8,11 @@
 
 
 <ion-content padding>
-    <ion-fab right bottom>
-        <button ion-fab color="dark" (click)="showModal('ModalAddProjectPage')"><ion-icon name="add"></ion-icon></button>
-      </ion-fab>
+  <ion-fab right bottom>
+    <button ion-fab color="dark" (click)="showModal('ModalAddProjectPage')">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
   <ion-card *ngFor="let proj of projects">
     <ion-card-header>
       {{proj.name}}
@@ -28,11 +30,11 @@
             </ion-row>
           </ion-col>
           <ion-col>
-              Components
-              <ion-row *ngFor="let comp of proj.components">
-                {{comp.name}}
-              </ion-row>
-            </ion-col>
+            Components
+            <ion-row *ngFor="let comp of proj.components">
+              {{comp.name}}
+            </ion-row>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>

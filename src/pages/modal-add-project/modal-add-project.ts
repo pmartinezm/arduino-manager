@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Component as Comp } from '../../core/models/component';
 import { ComponentsProvider } from '../../providers/components/components';
 import { ProjectsProvider } from '../../providers/projects/projects';
+import { Project } from '../../core/models/project';
 
 /**
  * Generated class for the ModalAddProjectPage page.
@@ -18,22 +19,18 @@ import { ProjectsProvider } from '../../providers/projects/projects';
 })
 export class ModalAddProjectPage {
 
-  components: Array<Comp>;
-
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private compProv: ComponentsProvider,
     private projProv: ProjectsProvider) {
-      this.components = new Array();
-      //this.updateComponents();
   }
 
   name: string;
-  description: string;
+  description: string = "";
   private addProject() {
-    this.projProv.insertProject(this.name, this.description);
-  }
-
-  private updateComponents() {
-    this.components = this.compProv.getComponents();
+    let project = new Project(this.name, this.description);
+    this.projProv.addProject(project)
+      .then(() => {
+        this.navCtrl.pop();
+      });
   }
 }

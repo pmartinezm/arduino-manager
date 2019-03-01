@@ -1,8 +1,26 @@
 export class Board {
     public name: string;
-    public desc: string;
-    constructor(name: string, desc: string) {
+    public description: string;
+    public project: number;
+
+    constructor(name: string, description: string) {
         this.name = name;
-        this.desc = desc;
+        this.description = description;
+        this.assignProject(-1);
+    }
+
+    public assignProject(id: number) {
+        this.project = id;
+    }
+
+    public getBoardUse(): string {
+        if (this.project === -1) {
+            return "Unused";
+        }
+        return "Used in project with id " + this.project;
+    }
+
+    public unassignProject() {
+        this.assignProject(-1);
     }
 }

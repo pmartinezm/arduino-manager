@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, List } from 'ionic-angular';
 import { ProjectsProvider } from '../../providers/projects/projects';
 import { Project } from '../../core/models/project';
+import { ComponentsProvider } from '../../providers/components/components';
 
 /**
  * Generated class for the ProjectsPage page.
@@ -23,23 +24,25 @@ export class ProjectsPage {
     public modalCtrl: ModalController,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public projProv: ProjectsProvider) {
+    public projProv: ProjectsProvider,
+    public compProv: ComponentsProvider) {
     this.updateProjects();
   }
 
   public updateProjects() {
     this.projects = new Array();
+    //Get projects
     this.projProv.getProjects()
     .then((data)=>{
       data.forEach(element => {
         let project: Project = element;
         this.projects.push(project);
       });
-    })
+    });
   }
 
   public showModal(name: string) {
-    let modal = this.modalCtrl.create("ModalAddProjectPage");
+    let modal = this.modalCtrl.create(name);
     modal.onDidDismiss(() => (this.updateProjects()));
     modal.present();
   }

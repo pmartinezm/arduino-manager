@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Component } from '../../core/models/component';
 import { SQLite } from '@ionic-native/sqlite';
+import { SqliProvider } from '../sqli/sqli';
 
 /*
   Generated class for the ComponentsProvider provider.
@@ -10,19 +11,32 @@ import { SQLite } from '@ionic-native/sqlite';
 */
 @Injectable()
 export class ComponentsProvider {
-  public components: Array<Component>;
 
-  constructor(private slite: SQLite) {
-    this.components = new Array();
-    
+  constructor(private db: SqliProvider) {
   }
 
-  public addComponent(comp: Component) {
-    let query = "insert into "
+  public getComponents() {
+    let sql = `select * from components`;
+    return this.db.send(sql);
   }
 
-  public getComponents(): Array<Component> {
-    return this.components;
+  public addComponent(c: Component){
+    let sql = `insert into components (name, description, project) values ('${c.name}', '${c.description}', '${c.project}')`;
+    return this.db.send(sql);
+  }
+
+  public deleteComponent(id: number) {
+    let sql = "delete from components where id = " + id;
+    return this.db.send(sql);
+  }
+
+  public editComponent(c: Component){
+    let sql = `update components set name = '${c.name}', description = '${c.description}'`;
+    return this.db.send(sql);
+  }
+
+  public getForProject(id: number) {
+    let sql = "select * from components where project = " + id;
   }
 
 }

@@ -14,15 +14,20 @@
 
 
 <ion-content padding>
+    <ion-fab right bottom>
+        <button ion-fab color="dark" (click)="showModal('ModalAddComponentPage')">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-fab>
   <ion-card *ngFor="let comp of components">
     <ion-card-header>
       {{comp.name}}
     </ion-card-header>
     <ion-card-content>
-      {{comp.desc}}
+      {{comp.description}}
     </ion-card-content>
     <ion-card-content>
-      {{comp.getComponentUse()}}
+      <!-- {{comp.getComponentUse()}} -->
     </ion-card-content>
   </ion-card>
 </ion-content>

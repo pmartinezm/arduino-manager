@@ -14,15 +14,13 @@ import { ToastController } from 'ionic-angular';
 */
 @Injectable()
 export class ProjectsProvider {
-  public projects: Array<Project>;
-
   constructor(private db: SqliProvider,
     private toast: ToastController) {
 
   }
 
-  public insertProject(name: string, description?:string ) {
-    let sql = `insert into projects (name, description) values ('${name}', '${description}')`;
+  public addProject(p: Project) {
+    let sql = `insert into projects (name, description) values ('${p.name}', '${p.description}')`;
     return this.db.send(sql);
   }
 
@@ -31,10 +29,18 @@ export class ProjectsProvider {
     return this.db.send(sql);
   }
 
-  private message(message: string, duration: number) {
-    this.toast.create({
-      message: message,
-      duration: duration
-    }).present();
+  public getProject(id: number) {
+    let sql = "select * from project where id = " + id;
+    return this.db.send(sql);
+  }
+
+  public deleteProject(id: number) {
+    let sql = "delete from projects where id = " + id;
+    return this.db.send(sql);
+  }
+
+  public editProject(id: number, name: string, description: string) {
+    let sql = `update project set name = '${name}', description = '${description}' where id = ${id}`;
+    return this.db.send(sql);
   }
 }
