@@ -13,7 +13,7 @@
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
-  <ion-card *ngFor="let proj of projects">
+  <ion-card *ngFor="let proj of projects" (press)="showActionSheet(proj.id)">
     <ion-card-header>
       {{proj.name}}
     </ion-card-header>

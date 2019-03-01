@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, List } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, List, ActionSheetController } from 'ionic-angular';
 import { ProjectsProvider } from '../../providers/projects/projects';
 import { Project } from '../../core/models/project';
 import { ComponentsProvider } from '../../providers/components/components';
@@ -25,7 +25,8 @@ export class ProjectsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public projProv: ProjectsProvider,
-    public compProv: ComponentsProvider) {
+    public compProv: ComponentsProvider,
+    public actionCtrl: ActionSheetController) {
     this.updateProjects();
   }
 
@@ -33,17 +34,44 @@ export class ProjectsPage {
     this.projects = new Array();
     //Get projects
     this.projProv.getProjects()
-    .then((data)=>{
-      data.forEach(element => {
-        let project: Project = element;
-        this.projects.push(project);
+      .then((data) => {
+        data.forEach(element => {
+          let project: Project = element;
+          this.projects.push(project);
+        });
       });
-    });
   }
 
   public showModal(name: string) {
     let modal = this.modalCtrl.create(name);
     modal.onDidDismiss(() => (this.updateProjects()));
     modal.present();
+  }
+
+  public showActionSheet() {
+    const actionSheet = this.actionCtrl.create({
+      title: 'Project actions',
+      buttons: [
+        {
+          text: 'Edit project info',
+          role: 'destructive',
+          handler: () => {
+            console.log('Destructive clicked');
+          }
+        }, {
+          text: 'Delete project',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 }
