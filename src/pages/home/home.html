@@ -10,19 +10,25 @@
   Estado: {{estado}}
 </ion-content>
 
-  <ion-menu [content]="content">
-    <ion-content>
-      <ion-list>
-        <button ion-item (click)="open('ProjectsPage')">
-          Projects
-        </button>
-        <button ion-item (click)="open('BoardsPage')">
-          Boards
-        </button>
-        <button ion-item (click)="open('ComponentsManagerPage')">
-          Components
-        </button>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-  <ion-nav id="nav" #content [root]="rootPage"></ion-nav>
+<ion-menu [content]="content">
+  <ion-content>
+    <ion-list>
+      <button ion-item (click)="open('ProjectsPage')">
+        Projects
+      </button>
+      <button ion-item (click)="open('BoardsPage')">
+        Boards
+      </button>
+      <button ion-item (click)="open('ComponentsManagerPage')">
+        Components
+      </button>
+      <button ion-item (click)="open('BluetoothPage')">
+        Bluetooth
+      </button>
+      <button ion-item (click)="open('SerialConsolePage')">
+        Serial console
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-nav id="nav" #content [root]="rootPage"></ion-nav>

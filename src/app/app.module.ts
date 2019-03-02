@@ -10,6 +10,8 @@ import { ProjectsProvider } from '../providers/projects/projects';
 import { ComponentsProvider } from '../providers/components/components';
 import { SqliProvider } from '../providers/sqli/sqli';
 import { SQLite } from '@ionic-native/sqlite';
+import { BtProvider } from '../providers/bt/bt';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { SQLite } from '@ionic-native/sqlite';
     ProjectsProvider,
     ComponentsProvider,
     SqliProvider,
-    SQLite
+    SQLite,
+    BtProvider,
+    BluetoothSerial
   ]
 })
 export class AppModule { }

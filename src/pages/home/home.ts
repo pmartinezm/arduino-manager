@@ -11,7 +11,8 @@ export class HomePage {
   estado: string;
 
   constructor(public navCtrl: NavController,
-    private sqli: SqliProvider) {
+    //private sqli: SqliProvider
+  ) {
   }
 
   public open(page: string) {
