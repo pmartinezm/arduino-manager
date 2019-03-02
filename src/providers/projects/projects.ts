@@ -30,7 +30,7 @@ export class ProjectsProvider {
   }
 
   public getProject(id: number) {
-    let sql = "select * from project where id = " + id;
+    let sql = "select * from projects where id = " + id;
     return this.db.send(sql);
   }
 
@@ -40,7 +40,7 @@ export class ProjectsProvider {
   }
 
   public editProject(id: number, name: string, description: string) {
-    let sql = `update project set name = '${name}', description = '${description}' where id = ${id}`;
+    let sql = `update projects set name = '${name}', description = '${description}' where id = ${id}`;
     return this.db.send(sql);
   }
 }

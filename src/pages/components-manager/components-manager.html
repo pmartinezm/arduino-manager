@@ -19,7 +19,7 @@
           <ion-icon name="add"></ion-icon>
         </button>
       </ion-fab>
-  <ion-card *ngFor="let comp of components">
+  <ion-card *ngFor="let comp of components" (press)="showActionSheet(comp.id)">
     <ion-card-header>
       {{comp.name}}
     </ion-card-header>
@@ -27,7 +27,7 @@
       {{comp.description}}
     </ion-card-content>
     <ion-card-content>
-      <!-- {{comp.getComponentUse()}} -->
+      {{comp.projectName}}
     </ion-card-content>
   </ion-card>
 </ion-content>

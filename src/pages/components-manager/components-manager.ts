@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ToastController, ActionSheetController, ViewController } from 'ionic-angular';
 import { Component as Comp } from '../../core/models/component';
 import { ComponentsProvider } from '../../providers/components/components';
+import { ProjectsProvider } from '../../providers/projects/projects';
+import { Project } from '../../core/models/project';
 
 /**
  * Generated class for the ComponentsManagerPage page.
@@ -19,9 +21,15 @@ export class ComponentsManagerPage {
 
   components: Array<Comp>
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
     private compProv: ComponentsProvider,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController,
+    public toast: ToastController,
+    public actionCtrl: ActionSheetController,
+    public projProv: ProjectsProvider,
+    public viewCtrl: ViewController
+  ) {
     this.components = new Array();
     this.updateComponents();
   }
@@ -38,10 +46,87 @@ export class ComponentsManagerPage {
       .then((data) => {
         data.forEach(element => {
           let component: Comp = element;
-          console.log(component);
-          // console.log(component.getComponentUse());
+          this.projProv.getProject(component.project)
+            .then((projects) => {
+              if (projects.length == 0) {
+                component.projectName = "No project";
+              } else {
+                let project: Project = projects[0];
+                component.projectName = project.name;
+              }
+            }).catch((e) => {
+              console.log("ERROR:");
+              console.log(e);
+            })
           this.components.push(component);
         });
+      });
+  }
+
+  public showActionSheet(id: number) {
+    const actionSheet = this.actionCtrl.create({
+      title: 'Project actions',
+      buttons: [
+        {
+          text: 'Edit component info',
+          role: 'destructive',
+          handler: () => {
+
+          }
+        }, {
+          text: 'Delete component',
+          handler: () => {
+            this.deleteComponent(id);
+          }
+        }, {
+          text: 'Usassing project',
+          handler: () => {
+            this.unassingComponent(id);
+          }
+        }, {
+          text: 'Add to project',
+          handler: () => {
+            let modal = this.modalCtrl.create("ModalAddToProjectPage", { id: id });
+            modal.onDidDismiss(() => {
+              this.updateComponents();
+            });
+            modal.present();
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+    this.updateComponents();
+  }
+
+  public unassingComponent(id: number) {
+    this.compProv.assignProject(id, -1)
+      .then(() => {
+        this.toast.create({
+          message: "This component is now available.",
+          duration: 3000
+        }).present();
+      }).catch(() => {
+        this.toast.create({
+          message: "Error unassigning component.",
+          duration: 5000
+        }).present();
+      });
+  }
+
+  public deleteComponent(id: number) {
+    this.compProv.deleteComponent(id)
+      .then(() => {
+        this.compProv.deleteForProject(id);
+        this.toast.create({
+          message: "Component deleted",
+          duration: 3000
+        }).present();
+      }).catch(() => {
+        this.toast.create({
+          message: "Error deleting component",
+          duration: 5000
+        }).present();
       });
   }
 

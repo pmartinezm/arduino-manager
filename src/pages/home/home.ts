@@ -11,12 +11,12 @@ export class HomePage {
   estado: string;
 
   constructor(public navCtrl: NavController,
-    //private sqli: SqliProvider
+    private sqli: SqliProvider
   ) {
   }
 
   public open(page: string) {
-    console.log("Opening page " + page);
+    //console.log("Opening page " + page);
     this.navCtrl.push(page)
   }
 

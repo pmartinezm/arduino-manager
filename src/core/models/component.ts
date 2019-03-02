@@ -2,6 +2,7 @@ export class Component {
     public name: string;
     public description: string;
     public project: number;
+    public projectName: string;
 
     constructor(name: string, description: string) {
         this.name = name;

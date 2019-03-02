@@ -15,28 +15,39 @@ export class ComponentsProvider {
   constructor(private db: SqliProvider) {
   }
 
-  public getComponents() {
+  public getComponents(): Promise<any[]> {
     let sql = `select * from components`;
     return this.db.send(sql);
   }
 
-  public addComponent(c: Component){
+  public addComponent(c: Component): Promise<any[]> {
     let sql = `insert into components (name, description, project) values ('${c.name}', '${c.description}', '${c.project}')`;
     return this.db.send(sql);
   }
 
-  public deleteComponent(id: number) {
+  public deleteComponent(id: number): Promise<any[]> {
     let sql = "delete from components where id = " + id;
     return this.db.send(sql);
   }
 
-  public editComponent(c: Component){
+  public editComponent(c: Component): Promise<any> {
     let sql = `update components set name = '${c.name}', description = '${c.description}'`;
     return this.db.send(sql);
   }
 
-  public getForProject(id: number) {
+  public getForProject(id: number): Promise<any[]> {
     let sql = "select * from components where project = " + id;
+    return this.db.send(sql);
+  }
+
+  public deleteForProject(id: number): Promise<any[]> {
+    let sql = "update components set project = -1 where project = " + id;
+    return this.db.send(sql);
+  }
+
+  public assignProject(id: number, project: number) {
+    let sql = `update components set project = ${project} where id = ${id}`;
+    return this.db.send(sql);
   }
 
 }
