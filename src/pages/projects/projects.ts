@@ -4,6 +4,8 @@ import { ProjectsProvider } from '../../providers/projects/projects';
 import { Project } from '../../core/models/project';
 import { Component as Comp } from '../../core/models/component';
 import { ComponentsProvider } from '../../providers/components/components';
+import { BoardsProvider } from '../../providers/boards/boards';
+import { Board } from '../../core/models/board';
 
 /**
  * Generated class for the ProjectsPage page.
@@ -28,7 +30,8 @@ export class ProjectsPage {
     public projProv: ProjectsProvider,
     public compProv: ComponentsProvider,
     public actionCtrl: ActionSheetController,
-    public toast: ToastController) {
+    public toast: ToastController,
+    public boardProv: BoardsProvider) {
     this.updateProjects();
   }
 
@@ -40,13 +43,23 @@ export class ProjectsPage {
         data.forEach(element => {
           let project: Project = element;
           let components = new Array<Comp>();
+          let boards = new Array<Board>();
           project.components = components;
+          project.boards = boards;
 
           this.compProv.getForProject(project.id)
             .then((dat) => {
               dat.forEach(element => {
                 let component: Comp = element;
                 components.push(component);
+              });
+            });
+
+          this.boardProv.getForProject(project.id)
+            .then((dat) => {
+              dat.forEach(element => {
+                let board: Board = element;
+                boards.push(board);
               });
             });
 

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ToastController, ActionSheetController, ViewController } from 'ionic-angular';
-import { Component as Comp } from '../../core/models/component';
+import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, ToastController, ViewController } from 'ionic-angular';
 import { ComponentsProvider } from '../../providers/components/components';
 import { ProjectsProvider } from '../../providers/projects/projects';
+import { Board } from '../../core/models/board';
 import { Project } from '../../core/models/project';
+import { BoardsProvider } from '../../providers/boards/boards';
 
 /**
- * Generated class for the ComponentsManagerPage page.
+ * Generated class for the BoardsPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -14,67 +15,67 @@ import { Project } from '../../core/models/project';
 
 @IonicPage()
 @Component({
-  selector: 'page-components-manager',
-  templateUrl: 'components-manager.html',
+  selector: 'page-boards',
+  templateUrl: 'boards.html',
 })
-export class ComponentsManagerPage {
+export class BoardsPage {
 
-  components: Array<Comp>
+  boards: Array<Board>
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private compProv: ComponentsProvider,
+    private boardProv: BoardsProvider,
     public modalCtrl: ModalController,
     public toast: ToastController,
     public actionCtrl: ActionSheetController,
     public projProv: ProjectsProvider,
     public viewCtrl: ViewController
   ) {
-    this.components = new Array();
-    this.updateComponents();
+    this.boards = new Array();
+    this.updateBoards();
   }
 
   public showModal(name: string) {
     let modal = this.modalCtrl.create(name);
-    modal.onDidDismiss(() => (this.updateComponents()));
+    modal.onDidDismiss(() => (this.updateBoards()));
     modal.present();
   }
 
-  public updateComponents() {
-    this.components = new Array();
-    this.compProv.getComponents()
+  public updateBoards() {
+    this.boards = new Array();
+    this.boardProv.getBoards()
       .then((data) => {
         data.forEach(element => {
-          let component: Comp = element;
-          this.projProv.getProject(component.project)
+          let board: Board = element;
+          this.projProv.getProject(board.project)
             .then((projects) => {
               if (projects.length == 0) {
-                component.projectName = "No project";
+                board.projectName = "No project";
               } else {
                 let project: Project = projects[0];
-                component.projectName = project.name;
+                board.projectName = project.name;
               }
             }).catch((e) => {
               console.log("ERROR:");
               console.log(e);
             })
-          this.components.push(component);
+          this.boards.push(board);
         });
       });
   }
 
   public showActionSheet(id: number) {
     const actionSheet = this.actionCtrl.create({
-      title: 'Project actions',
+      title: 'Board actions',
       buttons: [
         {
-          text: 'Edit component info',
+          text: 'Edit board info',
           role: 'destructive',
           handler: () => {
 
           }
         }, {
-          text: 'Delete component',
+          text: 'Delete board',
           handler: () => {
             this.deleteComponent(id);
           }
@@ -86,9 +87,9 @@ export class ComponentsManagerPage {
         }, {
           text: 'Add to project',
           handler: () => {
-            let modal = this.modalCtrl.create("ModalAddToProjectPage", { id: id, type: "component" });
+            let modal = this.modalCtrl.create("ModalAddToProjectPage", { id: id, type: "board" });
             modal.onDidDismiss(() => {
-              this.updateComponents();
+              this.updateBoards();
             });
             modal.present();
           }
@@ -96,28 +97,28 @@ export class ComponentsManagerPage {
       ]
     });
     actionSheet.present();
-    this.updateComponents();
+    this.updateBoards();
   }
 
   public unassingComponent(id: number) {
-    this.compProv.assignProject(id, -1)
+    this.boardProv.assignProject(id, -1)
       .then(() => {
         this.toast.create({
-          message: "This component is now available.",
+          message: "This board is now available.",
           duration: 3000
         }).present();
       }).catch(() => {
         this.toast.create({
-          message: "Error unassigning component.",
+          message: "Error unassigning board.",
           duration: 5000
         }).present();
       });
   }
 
   public deleteComponent(id: number) {
-    this.compProv.deleteComponent(id)
+    this.boardProv.deleteBoard(id)
       .then(() => {
-        this.compProv.deleteForProject(id);
+        this.boardProv.deleteForProject(id);
         this.toast.create({
           message: "Component deleted",
           duration: 3000

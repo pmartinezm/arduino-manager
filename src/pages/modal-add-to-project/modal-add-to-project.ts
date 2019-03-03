@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { ProjectsProvider } from '../../providers/projects/projects';
 import { Project } from '../../core/models/project';
 import { ComponentsProvider } from '../../providers/components/components';
+import { BoardsProvider } from '../../providers/boards/boards';
 
 /**
  * Generated class for the ModalAddToProjectPage page.
@@ -23,7 +24,8 @@ export class ModalAddToProjectPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public projProv: ProjectsProvider,
-    public compProv: ComponentsProvider
+    public compProv: ComponentsProvider,
+    public boardProv: BoardsProvider
   ) {
     this.projects = new Array();
     this.projProv.getProjects()
@@ -36,7 +38,13 @@ export class ModalAddToProjectPage {
   }
 
   public addToProject(id: number) {
-    this.compProv.assignProject(this.navParams.data.id, id)
+    let prov: any;
+    if (this.navParams.data.type === "component") {
+      prov = this.compProv;
+    } else if (this.navParams.data.type === "board") {
+      prov = this.boardProv;
+    }
+    prov.assignProject(this.navParams.data.id, id)
       .then(() => {
         this.navCtrl.pop();
       }).catch((e) => {

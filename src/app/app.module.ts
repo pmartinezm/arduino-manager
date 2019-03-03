@@ -12,6 +12,7 @@ import { SqliProvider } from '../providers/sqli/sqli';
 import { SQLite } from '@ionic-native/sqlite';
 import { BtProvider } from '../providers/bt/bt';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { BoardsProvider } from '../providers/boards/boards';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
     SqliProvider,
     SQLite,
     BtProvider,
-    BluetoothSerial
+    BluetoothSerial,
+    BoardsProvider
   ]
 })
 export class AppModule { }

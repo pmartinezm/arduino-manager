@@ -35,7 +35,7 @@ export class SqliProvider {
 
   getDb() {
     return this.sqlite.create({
-      name: 'database.db',
+      name: 'am1.db',
       location: 'default'
     });
   }
@@ -82,10 +82,10 @@ export class SqliProvider {
         console.log(e);
       });
     this.db.executeSql(`create table if not exists boards (
-        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        name TEXT NOT NULL,
-        description TEXT NULL,
-        project INTEGER NOT NULL DEFAULT -1
+      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      name TEXT NOT NULL,
+      description TEXT NULL,
+      project INTEGER NOT NULL DEFAULT -1
       );`, [])
       .then(() => console.log("Table boards created."))
       .catch((e) => {
