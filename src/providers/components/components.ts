@@ -50,4 +50,9 @@ export class ComponentsProvider {
     return this.db.send(sql);
   }
 
+  public count() {
+    let sql = `select count(*) as count from components`;
+    return this.db.send(sql);
+  }
+
 }

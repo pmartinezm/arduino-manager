@@ -16,12 +16,11 @@ export class SqliProvider {
   constructor(private sqlite: SQLite,
     private platform: Platform,
     private toast: ToastController) {
-    this.platform.ready().then(() => {
       this.generateDb()
         .then(() => {
           this.toast.create({
             message: 'Database ok.',
-            duration: 5000
+            duration: 1000
           }).present();
         })
         .catch(() => {
@@ -30,7 +29,6 @@ export class SqliProvider {
             duration: 5000
           }).present();
         });
-    });
   }
 
   getDb() {

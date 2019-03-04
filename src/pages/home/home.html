@@ -1,13 +1,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
+        <ion-icon name="menu" (click)="openMenu()"></ion-icon>
       Arduino Utilities
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  Estado: {{estado}}
+  
 </ion-content>
 
 <ion-menu [content]="content">
@@ -15,12 +16,15 @@
     <ion-list>
       <button ion-item (click)="open('ProjectsPage')">
         Projects
+        <ion-badge item-end>{{projects}}</ion-badge>
       </button>
       <button ion-item (click)="open('BoardsPage')">
         Boards
+        <ion-badge item-end>{{boards}}</ion-badge>
       </button>
       <button ion-item (click)="open('ComponentsManagerPage')">
         Components
+        <ion-badge item-end>{{components}}</ion-badge>
       </button>
       <button ion-item (click)="open('BluetoothPage')">
         Bluetooth

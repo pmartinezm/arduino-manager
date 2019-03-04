@@ -11,6 +11,7 @@
 </ion-header>
 
 <ion-content padding>
+  
 
   <ion-card *ngFor="let device of pairedDevices" (press)="connect(device.address)">
     <ion-item>

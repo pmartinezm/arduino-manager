@@ -20,6 +20,10 @@ export class BtProvider {
 
   }
 
+  public enable() {
+    return this.bt.enable();
+  }
+
   public checkEnabled(): Promise<any> {
     return this.bt.isEnabled();
   }

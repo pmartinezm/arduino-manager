@@ -50,4 +50,9 @@ export class BoardsProvider {
     return this.db.send(sql);
   }
 
+  public count() {
+    let sql = `select count(*) as count from boards`;
+    return this.db.send(sql);
+  }
+
 }
