@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BtProvider } from '../../providers/bt/bt';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the SerialConsolePage page.
@@ -20,6 +21,13 @@ export class SerialConsolePage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public bt: BtProvider) {
+  }
+
+  ionViewDidLoad() {
+    // console.log("reading");
+    // this.bt.bt.subscribe("\n").subscribe(data=>{
+    //   console.log(data);
+    // });
   }
 
   public sendCommand() {

@@ -4,6 +4,7 @@ import { SqliProvider } from '../../providers/sqli/sqli';
 import { ComponentsProvider } from '../../providers/components/components';
 import { ProjectsProvider } from '../../providers/projects/projects';
 import { BoardsProvider } from '../../providers/boards/boards';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
   selector: 'page-home',
@@ -22,7 +23,8 @@ export class HomePage {
     private projProv: ProjectsProvider,
     private compProv: ComponentsProvider,
     private boardProv: BoardsProvider,
-    private platform: Platform
+    private platform: Platform,
+    private iab: InAppBrowser
   ) {
   }
 
@@ -52,6 +54,10 @@ export class HomePage {
   public open(page: string) {
     this.navCtrl.push(page);
     this.menuCtrl.close();
+  }
+
+  public openWeb(url: string) {
+    this.iab.create(url).show();
   }
 
   public openMenu() {

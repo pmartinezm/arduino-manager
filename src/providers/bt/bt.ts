@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
+import { TextEncoder, TextDecoder } from 'text-encoding';
 
 /*
   Generated class for the BtProvider provider.
@@ -55,9 +56,9 @@ export class BtProvider {
 
   public send(command: string) {
     return this.bt.write(command)
-    .catch(()=>{
+      .catch(() => {
 
-    });
+      });
   }
 
   public disconnect() {
