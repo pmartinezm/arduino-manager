@@ -25,12 +25,30 @@ export class BtProvider {
     return this.bt.enable();
   }
 
-  public checkEnabled(): Promise<any> {
-    return this.bt.isEnabled();
+  public isEnabled(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.bt.isEnabled()
+        .then(() => {
+          console.log("p enabled");
+          resolve("Bluetooth is enabled and");
+        }).catch(() => {
+          console.log("p not enabled");
+          reject("Bluetooth is disabled.");
+        });
+    });
   }
 
-  public isConnected() {
-    return this.bt.isConnected();
+  public isConnected(): Promise<string> {
+    return new Promise((resolve, reject)=>{
+      this.bt.isConnected()
+      .then(()=>{
+        console.log("p connected");
+        resolve("connected.");
+      }).catch(()=>{
+        console.log("p not connected");
+        reject("not connected.");
+      });
+    });
   }
 
   public getPaired(): Promise<any> {

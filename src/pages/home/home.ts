@@ -5,6 +5,7 @@ import { ComponentsProvider } from '../../providers/components/components';
 import { ProjectsProvider } from '../../providers/projects/projects';
 import { BoardsProvider } from '../../providers/boards/boards';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { BtProvider } from '../../providers/bt/bt';
 
 @Component({
   selector: 'page-home',
@@ -12,10 +13,14 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 })
 export class HomePage {
 
-  estado: string;
   components = 0;
   boards = 0;
   projects = 0;
+
+  btStatus = {
+    enabled: "",
+    connected: ""
+  };
 
   constructor(public navCtrl: NavController,
     private sqli: SqliProvider,
@@ -24,7 +29,8 @@ export class HomePage {
     private compProv: ComponentsProvider,
     private boardProv: BoardsProvider,
     private platform: Platform,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private bt: BtProvider
   ) {
   }
 
@@ -35,19 +41,32 @@ export class HomePage {
           .then((data) => {
             this.projects = data[0]["count"];
           });
-          this.boardProv.count()
+        this.boardProv.count()
           .then((data) => {
             this.boards = data[0]["count"];
           });
-          this.compProv.count()
+        this.compProv.count()
           .then((data) => {
             this.components = data[0]["count"];
           });
+        this.bt.isEnabled()
+          .then((s) => {
+            this.btStatus.enabled = s;
+            this.bt.isConnected().then((s) => {
+              this.btStatus.connected = s;
+            }).catch((s) => {
+              this.btStatus.connected = s;
+            })
+          }).catch((s) => {
+            this.btStatus.enabled = s;
+          });
+      }).catch((e)=>{
+        console.log("PLATFORM NOT READY:");
+        console.log(e);
       });
   }
 
   ionViewDidEnter() {
-    console.log("updating");
     this.update();
   }
 

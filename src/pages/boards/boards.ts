@@ -31,7 +31,9 @@ export class BoardsPage {
     public projProv: ProjectsProvider,
     public viewCtrl: ViewController
   ) {
-    this.boards = new Array();
+  }
+
+  ionViewWillEnter() {
     this.updateBoards();
   }
 
@@ -69,12 +71,6 @@ export class BoardsPage {
       title: 'Board actions',
       buttons: [
         {
-          text: 'Edit board info',
-          role: 'destructive',
-          handler: () => {
-
-          }
-        }, {
           text: 'Delete board',
           handler: () => {
             this.deleteComponent(id);
@@ -97,7 +93,9 @@ export class BoardsPage {
       ]
     });
     actionSheet.present();
-    this.updateBoards();
+    actionSheet.onDidDismiss(() => {
+      this.updateBoards();
+    });
   }
 
   public unassingComponent(id: number) {
@@ -120,12 +118,12 @@ export class BoardsPage {
       .then(() => {
         this.boardProv.deleteForProject(id);
         this.toast.create({
-          message: "Component deleted",
+          message: "Board deleted",
           duration: 3000
         }).present();
       }).catch(() => {
         this.toast.create({
-          message: "Error deleting component",
+          message: "Error deleting board",
           duration: 5000
         }).present();
       });

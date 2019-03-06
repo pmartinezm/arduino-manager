@@ -1,14 +1,21 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-        <ion-icon name="menu" (click)="openMenu()"></ion-icon>
-      Arduino Utilities
-    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Arduino Utilities</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  
+  <ion-card>
+    <ion-card-header>
+      Bluetooth status
+    </ion-card-header>
+    <ion-card-content>
+      {{btStatus.enabled}} {{btStatus.connected}}
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 <ion-menu [content]="content">

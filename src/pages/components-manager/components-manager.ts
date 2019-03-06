@@ -30,7 +30,9 @@ export class ComponentsManagerPage {
     public projProv: ProjectsProvider,
     public viewCtrl: ViewController
   ) {
-    this.components = new Array();
+  }
+
+  ionViewWillEnter() {
     this.updateComponents();
   }
 
@@ -68,12 +70,6 @@ export class ComponentsManagerPage {
       title: 'Project actions',
       buttons: [
         {
-          text: 'Edit component info',
-          role: 'destructive',
-          handler: () => {
-
-          }
-        }, {
           text: 'Delete component',
           handler: () => {
             this.deleteComponent(id);
@@ -96,7 +92,9 @@ export class ComponentsManagerPage {
       ]
     });
     actionSheet.present();
-    this.updateComponents();
+    actionSheet.onDidDismiss(() => {
+      this.updateComponents();
+    });
   }
 
   public unassingComponent(id: number) {

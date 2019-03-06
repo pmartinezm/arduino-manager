@@ -24,7 +24,7 @@ export class BluetoothPage {
     public bt: BtProvider,
     public alertCtrl: AlertController,
     public toast: ToastController) {
-    this.bt.checkEnabled().then(() => {
+    this.bt.isEnabled().then(() => {
       this.getPairedDevices();
     }).catch(()=>{
       this.showAlert();

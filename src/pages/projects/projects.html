@@ -24,15 +24,19 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            Boards
+            <ion-row class="grid-header">
+              Boards
+            </ion-row>
             <ion-row *ngFor="let board of proj.boards">
-              {{board.name}}
+              -{{board.name}}
             </ion-row>
           </ion-col>
-          <ion-col>
-            Components
+          <ion-col class="col-data">
+            <ion-row class="grid-header">
+              Components
+            </ion-row>
             <ion-row *ngFor="let comp of proj.components">
-              {{comp.name}}
+              -{{comp.name}}
             </ion-row>
           </ion-col>
         </ion-row>

@@ -32,6 +32,9 @@ export class ProjectsPage {
     public actionCtrl: ActionSheetController,
     public toast: ToastController,
     public boardProv: BoardsProvider) {
+  }
+
+  ionViewWillEnter() {
     this.updateProjects();
   }
 
@@ -79,12 +82,6 @@ export class ProjectsPage {
       title: 'Project actions',
       buttons: [
         {
-          text: 'Edit project info',
-          role: 'destructive',
-          handler: () => {
-
-          }
-        }, {
           text: 'Delete project',
           handler: () => {
             this.deleteProject(id);
@@ -93,7 +90,9 @@ export class ProjectsPage {
       ]
     });
     actionSheet.present();
-    this.updateProjects();
+    actionSheet.onDidDismiss(() => {
+      this.updateProjects();
+    });
   }
 
   public deleteProject(id: number) {
