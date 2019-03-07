@@ -67,7 +67,7 @@ export class BtProvider {
     });
   }
 
-  public send(command: string) {
+  public send(command: any) {
     return this.bt.write(command);
   }
 

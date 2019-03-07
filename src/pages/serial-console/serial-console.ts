@@ -24,14 +24,21 @@ export class SerialConsolePage {
   }
 
   ionViewDidLoad() {
-    // console.log("reading");
-    // this.bt.bt.subscribe("\n").subscribe(data=>{
-    //   console.log(data);
-    // });
   }
 
   public sendCommand() {
-    this.bt.send(this.command);
+    let bytes = new Array();
+    
+    for(let i = 0; i < this.command.length; i++) {
+      bytes.push(this.command.charCodeAt(i));
+    }
+
+    let pack = new Uint8Array(bytes);
+
+    console.log(bytes);
+    console.log(pack);
+
+    this.bt.send(bytes);
     this.command = "";
   }
 
