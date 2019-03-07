@@ -50,3 +50,17 @@ ion-grid {
         font-size: 125%;
     }
 }
+
+ion-menu {
+    ion-content {
+        background-color: #E5AD24 !important;
+    }
+    ion-list {
+        button {
+            background-color: #E5AD24 !important;
+            ion-badge {
+                background-color: #E47128 !important;
+            }
+        }
+    }
+}

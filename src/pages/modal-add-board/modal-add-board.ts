@@ -28,9 +28,6 @@ export class ModalAddBoardPage {
     this.boardProv.addBoard(board)
       .then(() => {
         this.navCtrl.pop();
-      }).catch((e)=>{
-        console.log(e);
       });
   }
-
 }

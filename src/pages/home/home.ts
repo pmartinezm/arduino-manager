@@ -34,7 +34,13 @@ export class HomePage {
   ) {
   }
 
+  private clearBtStatus() {
+    this.btStatus.connected = "";
+    this.btStatus.enabled = "";
+  }
+
   private update() {
+    this.clearBtStatus();
     this.platform.ready()
       .then(() => {
         this.projProv.count()
@@ -60,9 +66,6 @@ export class HomePage {
           }).catch((s) => {
             this.btStatus.enabled = s;
           });
-      }).catch((e)=>{
-        console.log("PLATFORM NOT READY:");
-        console.log(e);
       });
   }
 

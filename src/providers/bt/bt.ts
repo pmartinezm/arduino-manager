@@ -29,25 +29,21 @@ export class BtProvider {
     return new Promise((resolve, reject) => {
       this.bt.isEnabled()
         .then(() => {
-          console.log("p enabled");
-          resolve("Bluetooth is enabled and");
+          resolve("Bluetooth is enabled");
         }).catch(() => {
-          console.log("p not enabled");
-          reject("Bluetooth is disabled.");
+          reject("Bluetooth is disabled");
         });
     });
   }
 
   public isConnected(): Promise<string> {
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
       this.bt.isConnected()
-      .then(()=>{
-        console.log("p connected");
-        resolve("connected.");
-      }).catch(()=>{
-        console.log("p not connected");
-        reject("not connected.");
-      });
+        .then(() => {
+          resolve("Connected.");
+        }).catch(() => {
+          reject("Not connected.");
+        });
     });
   }
 
@@ -66,24 +62,16 @@ export class BtProvider {
       this.toast.create({ message: "Connected", duration: 2500 }).present();
       console.log("DATA:");
       console.log(data);
-      //this.bt.write('1').then(()=>console.log("SEND OK")).catch(()=>console.log("SEND ERR"));
     }, () => {
       this.toast.create({ message: "Disconnected", duration: 2500 }).present();
     });
   }
 
   public send(command: string) {
-    return this.bt.write(command)
-      .catch(() => {
-
-      });
+    return this.bt.write(command);
   }
 
   public disconnect() {
-    this.bt.disconnect().then(() => {
-      console.log("Disconnected");
-    }).catch(() => {
-      console.log("ERRRRERERERERERER");
-    })
+    this.bt.disconnect();
   }
 }
