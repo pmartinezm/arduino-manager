@@ -1,5 +1,5 @@
 # arduino-manager
 
 ## TODO
-- ~~Add icon.
+- ~~Add icon.~~
 - Sidemenu styling.
