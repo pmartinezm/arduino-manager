@@ -7,3 +7,6 @@ You can also connect to your arduino bluetooth and send commands to it to intera
 You can see what components and boards a project uses and where this components and boards are being used.
 
 You have links to arduino forum if you have any issue or question and to the arduino docs if you need to consult anything.
+
+## Annotations
+- You can send something to the arduino board and it will receive it, but there is a problem with the data types and arduino can't understand the received data.
