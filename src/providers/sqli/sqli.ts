@@ -17,17 +17,12 @@ export class SqliProvider {
     private platform: Platform,
     private toast: ToastController) {
       this.generateDb()
-        .then(() => {
+        .catch((e) => {
           this.toast.create({
-            message: 'Database ok.',
-            duration: 1000
-          }).present();
-        })
-        .catch(() => {
-          this.toast.create({
-            message: 'Database error.',
+            message: 'Application error. Please restart.',
             duration: 5000
           }).present();
+          console.log(e);
         });
   }
 

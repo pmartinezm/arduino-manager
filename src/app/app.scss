@@ -53,13 +53,15 @@ ion-grid {
 
 ion-menu {
     ion-content {
-        background-color: #E5AD24 !important;
+        background-color: #62AEB2 !important;
     }
     ion-list {
         button {
-            background-color: #E5AD24 !important;
+            color: white !important;
+            background-color: #62AEB2 !important;
             ion-badge {
-                background-color: #E47128 !important;
+                background-color: white !important;
+                color: black !important;
             }
         }
     }

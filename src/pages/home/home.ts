@@ -41,6 +41,7 @@ export class HomePage {
 
   private update() {
     this.clearBtStatus();
+    this.sqli;
     this.platform.ready()
       .then(() => {
         this.projProv.count()
